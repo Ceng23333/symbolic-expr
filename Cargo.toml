@@ -1,0 +1,20 @@
+[package]
+name = "symbolic-expr"
+description = ""
+version = "0.3.1"
+edition = "2024"
+authors = [
+    "Ceng23333 <thsszh@hotmail.com>", 
+    "YdrMaster <ydrml@hotmail.com>",
+]
+repository = "https://github.com/Ceng23333/symbolic-expr"
+documentation = "https://docs.rs/symbolic-expr"
+license = "MIT"
+readme = "README.md"
+keywords = ["digit", "layout", "data-type"]
+categories = ["no-std::no-alloc"]
+
+[dependencies]
+num-rational = "0.4"
+
+[features]
