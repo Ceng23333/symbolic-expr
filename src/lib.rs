@@ -230,6 +230,12 @@ impl From<usize> for Expr {
     }
 }
 
+impl From<&str> for Expr {
+    fn from(value: &str) -> Self {
+        Expr::Variable(value.to_string())
+    }
+}
+
 impl From<String> for Expr {
     fn from(value: String) -> Self {
         Expr::Variable(value)
@@ -431,7 +437,10 @@ impl CanonicalTerm {
 
     /// Combine like terms by adding coefficients of terms with the same variables.
     pub fn combine_like_terms(mut terms: Vec<CanonicalTerm>) -> Vec<CanonicalTerm> {
-        
+        // Remove factors with zero exponents from each term
+        terms.iter_mut().for_each(|term| {
+            term.factors.retain(|factor| factor.exponent != 0);
+        });
 
         // Sort terms so that constant terms come first
         terms.sort_by(|a, b| {
@@ -1590,13 +1599,11 @@ mod tests {
         assert_eq!(result6.len(), 3);
         assert_eq!(result6[0].coef, Ratio::new(3, 1));
         assert!(result6[0].is_constant());
-        assert_eq!(result6[1].coef, Ratio::new(1, 1));
-        assert_eq!(result6[1].factors.len(), 2);
+        assert_eq!(result6[1].coef, Ratio::new(2, 1));
+        assert_eq!(result6[1].factors.len(), 1);
         assert_eq!(result6[1].factors[0].base, "a");
-        assert_eq!(result6[1].factors[1].base, "b");
-        assert_eq!(result6[2].coef, Ratio::new(2, 1));
-        assert_eq!(result6[2].factors.len(), 2);
-        assert_eq!(result6[2].factors[0].base, "a");
-        assert_eq!(result6[2].factors[1].base, "b");
+        assert_eq!(result6[2].coef, Ratio::new(1, 1));
+        assert_eq!(result6[2].factors.len(), 1);
+        assert_eq!(result6[2].factors[0].base, "b");
     }
 }
