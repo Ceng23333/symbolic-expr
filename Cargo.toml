@@ -1,7 +1,7 @@
 [package]
 name = "symbolic-expr"
-description = ""
-version = "0.3.1"
+description = "Symbolic expression library for computation of expressions with variables and checking of equality"
+version = "0.1.0"
 edition = "2024"
 authors = [
     "Ceng23333 <thsszh@hotmail.com>", 
@@ -17,4 +17,3 @@ categories = ["no-std::no-alloc"]
 [dependencies]
 num-rational = "0.4"
 
-[features]
